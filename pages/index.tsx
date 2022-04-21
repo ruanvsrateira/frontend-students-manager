@@ -1,13 +1,115 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { AppBar, Button, Container, makeStyles, Theme, Toolbar, Typography, useTheme } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+
+import Link from 'next/link';
 
 import Header from '../src/components/Header';
 
+import Head from 'next/head';
 
-const Home: React.FC = () => {
+import { Delete } from '@mui/icons-material';
+
+import axios from 'axios';
+
+interface Iitem {
+  id: number,
+  name: string,
+  email: string,
+  cpf: string,
+  age: string,
+}
+
+const Home: React.FC = () => {  
+
+  const [ rows, setRows ] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3333/students").then(({ data }) => {
+      setRows(data.students);
+    }).catch(e => console.log("ERROR", e));
+  }, []);
+
   return(
-    <Header />
+    <>
+      <Head>
+        <title>
+          Students
+        </title>
+      </Head>
+      <main>
+        <Header />
+
+        <Typography
+          textAlign="center"
+          marginTop="100px"
+          fontFamily="Poppins"
+          fontSize="30px"
+          color="#4a4a4a"
+        >
+          Students
+        </Typography>
+
+        <TableContainer
+          style={{ width: "60%", margin: "50px auto", border: "1px solid #4a4a4a", borderRadius: "5px"}}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  style={{ fontFamily: "Roboto", fontWeight: 500 }}
+                >
+                  Nome
+                </TableCell>
+                
+                <TableCell
+                  style={{ fontFamily: "Roboto", fontWeight: 500  }}
+                >
+                  E-mail
+                </TableCell>
+                
+                <TableCell
+                  style={{ fontFamily: "Roboto", fontWeight: 500  }}
+                >
+                  Age
+                </TableCell>
+                
+                <TableCell
+                  style={{ fontFamily: "Roboto", fontWeight: 500  }}
+                >
+                  Cpf
+                </TableCell>
+
+                <TableCell
+                  style={{ fontFamily: "Roboto", fontWeight: 500  }}
+                >
+                  Actions
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              
+              { rows.map((item: Iitem) => {
+                return(
+                  <TableRow key={item.id}>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.email}</TableCell>
+                    <TableCell>{item.age}</TableCell>
+                    <TableCell>{item.cpf}</TableCell>
+                    <TableCell>
+                      <Link href={`deleteStudent/${item.id}`} passHref>
+                        <Delete style={{ fill: "#4a4a4a", cursor: "pointer"}}/>
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              }) }  
+
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </main>
+    </>
   );
 }
 
