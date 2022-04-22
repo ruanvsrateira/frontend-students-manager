@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 import Link from 'next/link';
 
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
               <TableCell
                 style={{ fontFamily: "Roboto", fontWeight: 500 }}
               >
-                Nome
+                Name
               </TableCell>
               
               <TableCell
@@ -114,7 +114,17 @@ const Home: React.FC = () => {
             </TableBody>       
         </Table>
       </TableContainer>
-      ) : (<h1>Não alunos cadastrados</h1>)}
+      ) : (
+        <Container
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <Alert severity="info">
+          There are no Students registered in our system.   
+            <Link href="/addStudent" passHref> click here </Link> 
+            to create a student
+          </Alert>
+        </Container>
+      )}
       </main>
     </>
   );

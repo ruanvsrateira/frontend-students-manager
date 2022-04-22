@@ -10,16 +10,16 @@ import Link from 'next/link';
 import axios from 'axios';
 
 const deleteStudent: React.FC = () => { 
+    const router = useRouter();
     
-    const router = useRouter()
     const {
         query: { id, name },
     } = router
     
     const deleteStudent = async(id: number) => {
-        await axios.get(`http://localhost:3333/students/${id}/delete`);
+        const data = await axios.get(`http://localhost:3333/students/${id}/delete`);
 
-        window.location.href = "/";
+        window.location.href = "/"
     }
 
 
@@ -36,7 +36,7 @@ const deleteStudent: React.FC = () => {
                     Realmente deseja deletar o aluno { name } ?
                 </Typography>
                 <Box
-                    style={styles.buttonsContainer}
+                    marginTop="20px"
                 >
                     <Button
                         style={styles.confirmButton}
