@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../src/components/Header';
+import Header from '../../components/Header';
 import { useRouter } from 'next/router';
 import { Box, Button, Container, Typography } from '@mui/material';
 import Link from 'next/link';
@@ -14,11 +14,13 @@ const deleteStudent: React.FC = () => {
     } = router; 
 
     const deleteStudent = async() => {
+
         const data = await axios.get(`http://localhost:3333/students/${id}/delete`);
-        
+
         console.log(data);
 
         router.push("/");
+        
     }
 
     return(
@@ -34,7 +36,7 @@ const deleteStudent: React.FC = () => {
                 <Typography
                     style={{
                         fontFamily: "Poppins",
-                        color: "#000",
+                        color: "#4a4a4a",
                         fontSize: "30px",
                     }}
                 >

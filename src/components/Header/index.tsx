@@ -9,9 +9,11 @@ const Header: React.FC = () => {
         <div>
             <AppBar style={{ position: "initial" }}>
                 <Toolbar style={styles.toolbar}>
-                    <Button style={styles.buttonAddStudents}>
-                        Add students
-                    </Button>
+                    <Link href="/addStudent" passHref>
+                        <Button style={styles.buttonAddStudents}>
+                            Add students
+                        </Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </div>

@@ -4,7 +4,7 @@ import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHea
 
 import Link from 'next/link';
 
-import Header from '../src/components/Header';
+import Header from '../components/Header';
 
 import Head from 'next/head';
 
@@ -12,6 +12,7 @@ import { Delete } from '@mui/icons-material';
 
 import axios from 'axios';
 
+ 
 interface Iitem {
   id: number,
   name: string,
@@ -39,7 +40,7 @@ const Home: React.FC = () => {
       </Head>
       <main>
         <Header />
-
+        
         <Typography
           textAlign="center"
           marginTop="100px"
