@@ -1,12 +1,15 @@
-import { Box, Button, Container, TextField, Typography, FormControl } from '@mui/material';
+import { Box, Button, Container, Typography, FormControl } from '@mui/material';
 import React from 'react';
 import Header from '../../components/Header';
 import axios from 'axios';
+
 import { useRouter } from 'next/router';
 import { ArrowBack } from '@mui/icons-material'
 
 import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
+
+import Input from '../../components/Input';
 
 if(typeof window !== "undefined") {
     injectStyle();
@@ -78,30 +81,31 @@ const addStudent: React.FC = () => {
 
                 onSubmit={addStudent}
             >
-                <TextField
+                <Input
                     id='nameField'
                     label="Name"
-                    style={{
-                        width: "60%"
-                    }}
+                    required
                 />
-                <TextField label="E-mail" id="emailField"
+
+                <Input 
+                    label="E-mail"
+                    id="emailField"
                     type="email"
                     required
-                    style={{
-                        width: "60%"
-                    }}
                 />
-                <TextField label="Age" id="ageField"
-                    style={{
-                        width: "60%"
-                    }}
+
+                <Input
+                    label="Age" 
+                    id="ageField"
+                    required
                 />
-                <TextField label="CPF" id="cpfField"
-                    style={{
-                        width: "60%"
-                    }}
+
+                <Input 
+                    label="CPF"
+                    id="cpfField"
+                    required
                 />
+
                 <Button
                     type="submit"
                     style={{
