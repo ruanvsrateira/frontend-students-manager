@@ -1,7 +1,10 @@
 import { Box, Button, Container, Typography, FormControl } from '@mui/material';
 import React from 'react';
+
 import Header from '../../components/Header';
-import axios from 'axios';
+import Input from '../../components/Input';
+
+import api from '../../services/api';
 
 import { useRouter } from 'next/router';
 import { ArrowBack } from '@mui/icons-material'
@@ -9,7 +12,6 @@ import { ArrowBack } from '@mui/icons-material'
 import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 
-import Input from '../../components/Input';
 
 if(typeof window !== "undefined") {
     injectStyle();
@@ -36,7 +38,7 @@ const addStudent: React.FC = () => {
             );
         }
 
-        await axios.post("http://localhost:3333/students", {
+        await api.post("/students", {
             name: `${dataUser.name}`,
             email: `${dataUser.email}`,
             cpf: `${dataUser.cpf}`,
