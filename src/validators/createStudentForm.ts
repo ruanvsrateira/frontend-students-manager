@@ -8,4 +8,4 @@ export const StudentSchema = yup.object().shape({
     email: yup.string().required(),
     cpf: yup.string().required(),
     age: yup.number().required(),
-});
+}).required();

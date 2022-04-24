@@ -1,18 +1,13 @@
-import { Button, Container, Typography, FormControl, TextField } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import React from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import api from '../../services/api';
 import { useRouter } from 'next/router';
-import { ArrowBack, FormatItalic } from '@mui/icons-material'
 import { ToastContainer, toast } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { StudentSchema } from '../../validators/createStudentForm';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useFormik, Formik, Form, Field } from 'formik';
-import { route } from 'next/dist/server/router';
+import { useFormik } from 'formik';
 
 if(typeof window !== "undefined") {
     injectStyle();
@@ -29,48 +24,49 @@ const addStudent: React.FC = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = useRouter();
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const formik = useFormik({
         initialValues:{
             name: "",
             email: "",
             cpf: "",
-            age: "",
+            age: 0,
         },
-        onSubmit: async() => {
-            alert(123)
+        onSubmit: async(data) => {
+            const response = await addStudent(data)
+
+            console.log("Response: ", response)
         },
 
         validationSchema: StudentSchema
     })
 
-    const addStudent = async() => {
-
-        const dataUser: IdataUser = {
-            name: (document.querySelector("#nameField") as HTMLInputElement).value,
-            email: (document.querySelector("#emailField") as HTMLInputElement).value,
-            cpf: (document.querySelector("#cpfField") as HTMLInputElement).value,
-            age: Number((document.querySelector("#ageField") as HTMLInputElement).value),
-        }
-            await api.post("/students", {
-                name: `${dataUser.name}`,
-                email: `${dataUser.email}`,
-                cpf: `${dataUser.cpf}`,
-                age: Number(dataUser.age)
-            }).then(({ data }) => {
-                console.log(data);
-                console.log(dataUser)
-                router.push("/", { query: { status: "user_created" } })
-            }).catch(e => console.log(e))
-        
+    const addStudent = async(dataUser:IdataUser) => {
+        await api.post("/students", {
+            name: `${dataUser.name}`,
+            email: `${dataUser.email}`,
+            cpf: `${dataUser.cpf}`,
+            age: Number(dataUser.age)
+        }).then(({ data }) => {
+            if(data.error) {
+                toast.error(`${data.error}`, 
+                    { position: toast.POSITION.TOP_LEFT }
+                )
+            } else {
+                router.push("/")
+            }
+        }).catch(e => console.log(e))
     }
 
     return(
         <>
             <Header />
-        
             <ToastContainer />
-
-            
+            <Container
+                style={{
+                    marginTop: "100px",
+                }}
+            >
                 <Typography
                     style={{
                         fontFamily: "Poppins",
@@ -81,39 +77,55 @@ const addStudent: React.FC = () => {
                 >
                     Adicionar Student
                 </Typography>
-
+                <Container
+                    style={{
+                        display: "flex",
+                        marginTop: "50px",
+                        flexDirection: "column",
+                    }}
+                >
                     <form
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap:"20px",
+                            alignItems: "center"
+                        }}
                         onSubmit={formik.handleSubmit}
                     >
                         <Input
-                            label="digite seu nome"
+                            label="Nome"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
+                            helperText={formik.errors.name}
+                            error={!!formik.errors.name && formik.touched.name}
                         />
-
                         <Input
-                            label="digite seu e-mail"
+                            label="E-mail"
                             name="email"
                             type="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
+                            helperText={formik.errors.email}
+                            error={!!formik.errors.email && formik.touched.email}
                         />
-
                         <Input
-                            label="digite seu cpf"
+                            label="CPF"
                             name="cpf"
                             value={formik.values.cpf}
                             onChange={formik.handleChange}
+                            helperText={formik.errors.cpf}
+                            error={!!formik.errors.cpf && formik.touched.cpf}
                         />
-
                         <Input
-                            label="digite sua idade"
+                            label="Age"
                             name="age"
                             value={formik.values.age}
                             onChange={formik.handleChange}
+                            helperText={formik.errors.age}
+                            error={!!formik.errors.age && formik.touched.age}
                         />
-
                         <Button
                             type="submit"
                             style={{
@@ -125,7 +137,21 @@ const addStudent: React.FC = () => {
                         >
                             Confirmar
                         </Button>
+
+                        <Button
+                            style={{
+                                backgroundColor: "rgb(229, 62, 62)",
+                                height: "50px",
+                                color: "rgb(255, 255, 255)",
+                                width: "200px",
+                            }}
+                            onClick={() => router.push("/") }
+                        >
+                            Cancelar
+                        </Button>
                     </form>
+                </Container>
+            </Container>
         </>
     );
 };

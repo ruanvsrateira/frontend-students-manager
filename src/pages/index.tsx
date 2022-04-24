@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
 import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-
 import Link from 'next/link';
-
 import Header from '../components/Header';
-
 import Head from 'next/head';
-
 import { Delete } from '@mui/icons-material';
-
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
  
 interface Iitem {
   id: number,
@@ -30,7 +23,6 @@ const Home: React.FC = () => {
       setRows(data.students);
     }).catch(e => console.log("ERROR", e));
   }, []);
-
 
 
   return(
