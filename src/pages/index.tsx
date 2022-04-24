@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { Delete } from '@mui/icons-material';
 
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
  
 interface Iitem {
@@ -22,7 +23,6 @@ interface Iitem {
 }
 
 const Home: React.FC = () => {  
-
   const [ rows, setRows ] = useState([]);
 
   useEffect(() => {
@@ -30,6 +30,8 @@ const Home: React.FC = () => {
       setRows(data.students);
     }).catch(e => console.log("ERROR", e));
   }, []);
+
+
 
   return(
     <>

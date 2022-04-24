@@ -1,24 +1,20 @@
-import React from 'react';
+import React, { HTMLProps } from 'react';
 
 import { TextField } from '@mui/material';
+import { Formik } from 'formik';
 
-interface IinputProps {
-    id: string,
-    required?: boolean,
-    label: string,
-    type?: string,
-}
+interface IinputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label?: string
+} 
 
-const Input = ({id, required, label, type}: IinputProps) => {
+const Input = ({ label, ...resProps }: IinputProps) => {
     return(
         <TextField
-            id={id}
-            required={required}
-            label={label}
-            type={type}
             style={{
                 width: "60%"
             }}
+            label={label}
+            {...resProps}
         />
     );
 };
