@@ -1,19 +1,35 @@
 import React, { HTMLProps } from 'react';
+import InputMask from 'react-input-mask';
+import { Container } from './styled';
 
-import { TextField } from '@mui/material';
-import { Formik } from 'formik';
+interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
+    mask?: string;
+    helperText?: string;
+    error?: boolean;
+  }
 
-
-
-const Input = ({ ...resProps }) => {
-    return(
-        <TextField
-            style={{
-                width: "60%",
-            }}
-            { ...resProps }
-        />
-    );
+const Input = ({mask, error, helperText, ...props }: Iinput) => {
+    if(mask) {
+        return(
+            <Container>
+                <InputMask
+                    mask={mask}
+                    className="input"
+                    { ...props }
+                />
+                <small color="red">{error && helperText}</small>
+            </Container>
+        );
+    } else {
+        return(
+            <Container>
+                <input 
+                    className="input"
+                    { ...props }
+                />
+            </Container>
+        );
+    }
 };
 
 export default Input;

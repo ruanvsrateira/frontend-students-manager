@@ -4,8 +4,7 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import Head from 'next/head';
 import { Delete } from '@mui/icons-material';
-import axios from 'axios';
-import { useRouter } from 'next/router';
+import api from '../services/api';
  
 interface Iitem {
   id: number,
@@ -19,7 +18,7 @@ const Home: React.FC = () => {
   const [ rows, setRows ] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3333/students").then(({ data }) => {
+    api.get("/students").then(({ data }) => {
       setRows(data.students);
     }).catch(e => console.log("ERROR", e));
   }, []);

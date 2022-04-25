@@ -1,4 +1,5 @@
 import { Button, Container, Typography } from '@mui/material';
+import { ArrowBack, ArrowForward, ArrowRight } from '@mui/icons-material';
 import React from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -33,9 +34,9 @@ const addStudent: React.FC = () => {
             age: 0,
         },
         onSubmit: async(data) => {
-            const response = await addStudent(data)
+            const response = await addStudent(data);
 
-            console.log("Response: ", response)
+            console.log(response)
         },
 
         validationSchema: StudentSchema
@@ -67,26 +68,27 @@ const addStudent: React.FC = () => {
                     marginTop: "100px",
                 }}
             >
-                <Typography
+                <Container
+                    style={{
+                        display: "flex",
+                        margin: "auto auto",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Typography
                     style={{
                         fontFamily: "Poppins",
                         color: "#4a4a4a",
                         fontSize: "30px",
                         textAlign: "center"
                     }}
-                >
-                    Adicionar Student
-                </Typography>
-                <Container
-                    style={{
-                        display: "flex",
-                        marginTop: "50px",
-                        flexDirection: "column",
-                    }}
-                >
+                    >
+                        Adicionar Student
+                    </Typography>
                     <form
                         style={{
                             display: "flex",
+                            marginTop: "20px",
                             flexDirection: "column",
                             gap:"20px",
                             alignItems: "center"
@@ -94,7 +96,7 @@ const addStudent: React.FC = () => {
                         onSubmit={formik.handleSubmit}
                     >
                         <Input
-                            label="Nome"
+                            placeholder="Nome"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -102,7 +104,7 @@ const addStudent: React.FC = () => {
                             error={!!formik.errors.name && formik.touched.name}
                         />
                         <Input
-                            label="E-mail"
+                            placeholder="E-mail"
                             name="email"
                             type="email"
                             value={formik.values.email}
@@ -111,44 +113,57 @@ const addStudent: React.FC = () => {
                             error={!!formik.errors.email && formik.touched.email}
                         />
                         <Input
-                            label="CPF"
+                            placeholder="CPF"
                             name="cpf"
+                            mask="999-999-999-99"
                             value={formik.values.cpf}
                             onChange={formik.handleChange}
                             helperText={formik.errors.cpf}
                             error={!!formik.errors.cpf && formik.touched.cpf}
                         />
                         <Input
-                            label="Age"
+                            placeholder="Age"
                             name="age"
                             value={formik.values.age}
                             onChange={formik.handleChange}
                             helperText={formik.errors.age}
                             error={!!formik.errors.age && formik.touched.age}
                         />
-                        <Button
-                            type="submit"
+                        <Container
                             style={{
-                                backgroundColor: "rgb(0 232 143)",
-                                color: "#fff",
-                                height: "50px",
-                                width: "200px",
+                                width: "100%",
+                                justifyContent: "center",
+                                gap: "10px",
+                                display: "flex"
                             }}
                         >
-                            Confirmar
-                        </Button>
-
-                        <Button
-                            style={{
-                                backgroundColor: "rgb(229, 62, 62)",
-                                height: "50px",
-                                color: "rgb(255, 255, 255)",
-                                width: "200px",
-                            }}
-                            onClick={() => router.push("/") }
-                        >
-                            Cancelar
-                        </Button>
+                            <Button
+                                style={{
+                                    backgroundColor: "rgb(229, 62, 62)",
+                                    height: "50px",
+                                    color: "rgb(255, 255, 255)",
+                                    width: "200px",
+                                    gap: "5px"
+                                }}
+                                onClick={() => router.push("/") }
+                            >
+                                <ArrowBack />
+                                Cancelar
+                            </Button>
+                            <Button
+                                type="submit"
+                                style={{
+                                    backgroundColor: "rgb(0 232 143)",
+                                    color: "#fff",
+                                    height: "50px",
+                                    width: "200px",
+                                    gap: "5px"
+                                }}
+                            >
+                                Confirmar
+                                <ArrowForward />
+                            </Button>
+                        </Container>
                     </form>
                 </Container>
             </Container>
