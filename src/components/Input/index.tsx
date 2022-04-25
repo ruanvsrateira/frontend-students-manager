@@ -8,23 +8,23 @@ interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
     error?: boolean;
   }
 
-const Input = ({mask, error, helperText, ...props }: Iinput) => {
+const Input = ({mask, error, ...props }: Iinput) => {
     if(mask) {
         return(
             <Container>
                 <InputMask
                     mask={mask}
-                    className="input"
+                    className={error ? ("input error") : ("input")}
                     { ...props }
                 />
-                <small color="red">{error && helperText}</small>
+                <small>{error ? (error) : (null)}</small>
             </Container>
         );
     } else {
         return(
             <Container>
                 <input 
-                    className="input"
+                    className={error ? ("input error") : ("input")}
                     { ...props }
                 />
             </Container>

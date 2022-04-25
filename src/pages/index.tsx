@@ -3,7 +3,7 @@ import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHea
 import Link from 'next/link';
 import Header from '../components/Header';
 import Head from 'next/head';
-import { Delete } from '@mui/icons-material';
+import { Delete, ModeEdit } from '@mui/icons-material';
 import api from '../services/api';
  
 interface Iitem {
@@ -93,12 +93,30 @@ const Home: React.FC = () => {
                       <TableCell>{item.email}</TableCell>
                       <TableCell>{item.age}</TableCell>
                       <TableCell>{item.cpf}</TableCell>
-                      <TableCell>
-                        <Link href={{
-                          pathname: "/deleteStudent",
-                          query: { id: item.id, name: item.name }
-                        }} passHref>
-                          <Delete style={{ fill: "#4a4a4a", cursor: "pointer"}}/>
+                      <TableCell style={{ gap: "5px" }}>
+                        <Link 
+                          href={{
+                            pathname: "/deleteStudent",
+                            query: { id: item.id, name: item.name }
+                          }} 
+                          passHref
+                        >
+                          <Delete style={{ fill: "#4a4a4a", cursor: "pointer" }} />
+                        </Link>
+                        <Link
+                          href={{
+                            pathname: "/editStudent",
+                            query: {
+                              id: item.id,
+                              name: item.name, 
+                              email: item.email,
+                              cpf: item.cpf,
+                              age: item.age
+                            }
+                          }}
+                          passHref
+                        >
+                          <ModeEdit style={{ fill: "#4a4a4a", cursor: "pointer" }} />
                         </Link>
                       </TableCell>
                     </TableRow>

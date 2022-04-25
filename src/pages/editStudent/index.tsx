@@ -1,62 +1,54 @@
-import { Button, Container, Typography } from '@mui/material';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
-import React from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
 import Header from '../../components/Header';
-import Input from '../../components/Input';
-import api from '../../services/api';
-import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
-import { StudentSchema } from '../../validators/StudentSchema';
+import { Container, Typography, Button } from '@mui/material';
+import Input from '../../components/Input';
 import { useFormik } from 'formik';
+import { StudentSchema } from '../../validators/StudentSchema';
+import { useRouter } from 'next/router';
+import api from '../../services/api';
 
 if(typeof window !== "undefined") {
     injectStyle();
 }
 
-interface IdataUser {
-    name: string,
-    email: string,
-    cpf: string,
-    age: number | undefined,
-};
-
-const addStudent: React.FC = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+const editStudent: React.FC = () => {
+     // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = useRouter();
+
+    const {
+        query: { id, name, email, cpf, age }
+    } = router;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const formik = useFormik({
         initialValues:{
-            name: "",
-            email: "",
-            cpf: "",
-            age: undefined,
+            name,
+            email,
+            cpf,
+            age,
         },
         onSubmit: async(data) => {
-            const response = await addStudent(data);
-
-            console.log(response)
+            await editStudent(data)
         },
 
-        validationSchema: StudentSchema
+        validationSchema: StudentSchema,
     })
 
-    const addStudent = async(dataUser:IdataUser) => {
-        await api.post("/students", {
-            name: `${dataUser.name}`,
-            email: `${dataUser.email}`,
-            cpf: `${dataUser.cpf}`,
-            age: Number(dataUser.age)
-        }).then(({ data }) => {
+    const editStudent = async(dataUser: any) => {
+        await api.post(`/students/${id}/edit`, {
+            name: dataUser.name,
+            email: dataUser.email,
+            cpf: dataUser.cpf,
+            age: dataUser.age,
+        }).then(({data}) => {
             if(data.error) {
                 toast.error(`${data.error}`, 
                     { position: toast.POSITION.TOP_LEFT }
                 )
-            } else {
-                router.push("/")
             }
-        }).catch(e => console.log(e))
+        })
     }
 
     return(
@@ -83,7 +75,7 @@ const addStudent: React.FC = () => {
                         textAlign: "center"
                     }}
                     >
-                        Adicionar Student
+                        Edit Student {name}
                     </Typography>
                     <form
                         style={{
@@ -108,7 +100,7 @@ const addStudent: React.FC = () => {
                             type="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
-                            error={!!formik.errors.email && formik.touched.email}
+                            error={!!formik.errors.email}
                         />
                         <Input
                             placeholder="CPF"
@@ -146,7 +138,7 @@ const addStudent: React.FC = () => {
                                 }}
                                 onClick={() => router.push("/") }
                             >
-                                <ArrowBack />
+
                                 Cancelar
                             </Button>
                             <Button
@@ -159,8 +151,7 @@ const addStudent: React.FC = () => {
                                     gap: "5px"
                                 }}
                             >
-                                Confirmar
-                                <ArrowForward />
+                                Salvar alterações
                             </Button>
                         </Container>
                     </form>
@@ -170,4 +161,4 @@ const addStudent: React.FC = () => {
     );
 };
 
-export default addStudent;
+export default editStudent;

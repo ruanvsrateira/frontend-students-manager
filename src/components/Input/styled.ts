@@ -19,11 +19,15 @@ export const Container = styled.div`
     .input:hover {
         border: 1px solid rgb(0 232 143);
         transition: 200ms;
-    }
+    };
 
     .input:focus {
         border: none;
         border: 1px solid rgb(0 232 143);
         transition: 0s;
+    };
+
+    input.error {
+        border: 1px solid rgb(229 62 62);
     }
 `;
