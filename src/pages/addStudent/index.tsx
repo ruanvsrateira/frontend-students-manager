@@ -1,14 +1,15 @@
-import { Button, Container, Typography } from '@mui/material';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import React from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import api from '../../services/api';
+import { Button, Container, Typography } from '@mui/material';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { StudentSchema } from '../../validators/StudentSchema';
 import { useFormik } from 'formik';
+import { NextPage } from 'next';
 
 if(typeof window !== "undefined") {
     injectStyle();
@@ -21,11 +22,8 @@ interface IdataUser {
     age: number | undefined,
 };
 
-const addStudent: React.FC = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+const AddStudent: NextPage = () => {
     const router = useRouter();
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const formik = useFormik({
         initialValues:{
             name: "",
@@ -170,4 +168,4 @@ const addStudent: React.FC = () => {
     );
 };
 
-export default addStudent;
+export default AddStudent;

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import Link from 'next/link';
 import Header from '../components/Header';
 import Head from 'next/head';
-import { Delete, ModeEdit } from '@mui/icons-material';
 import api from '../services/api';
+import { Delete, ModeEdit } from '@mui/icons-material';
+import { NextPage } from 'next';
+import React, { useEffect, useState } from 'react';
+import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+
  
 interface Iitem {
   id: number,
@@ -12,9 +14,9 @@ interface Iitem {
   email: string,
   cpf: string,
   age: string,
-}
+};
 
-const Home: React.FC = () => {  
+const Home: NextPage = () => {  
   const [ rows, setRows ] = useState([]);
 
   useEffect(() => {

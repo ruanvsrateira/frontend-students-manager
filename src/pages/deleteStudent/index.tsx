@@ -1,26 +1,21 @@
 import React from 'react';
 import Header from '../../components/Header';
+import Link from 'next/link';
+import api from '../../services/api';
 import { useRouter } from 'next/router';
 import { Box, Button, Container, Typography } from '@mui/material';
-import Link from 'next/link';
-import axios from 'axios';
+import { NextPage } from 'next';
 
-const deleteStudent: React.FC = () => { 
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+const DeleteStudent: NextPage = () => { 
     const router = useRouter();
     const {
         query: { name, id }
     } = router; 
-
     const deleteStudent = async() => {
-
-        const data = await axios.get(`http://localhost:3333/students/${id}/delete`);
+        const data = await api.get(`http://localhost:3333/students/${id}/delete`);
 
         console.log(data);
-
         router.push("/");
-        
     }
 
     return(
@@ -71,4 +66,4 @@ const deleteStudent: React.FC = () => {
     );
 };
 
-export default deleteStudent;
+export default DeleteStudent;

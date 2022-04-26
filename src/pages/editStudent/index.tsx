@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Header from '../../components/Header';
+import api from '../../services/api';
+import Input from '../../components/Input';
 import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { Container, Typography, Button } from '@mui/material';
-import Input from '../../components/Input';
 import { useFormik } from 'formik';
 import { StudentSchema } from '../../validators/StudentSchema';
 import { useRouter } from 'next/router';
-import api from '../../services/api';
+import { NextPage } from 'next';
 
 if(typeof window !== "undefined") {
     injectStyle();
 }
 
-const editStudent: React.FC = () => {
-     // eslint-disable-next-line react-hooks/rules-of-hooks
+const EditStudent: NextPage = () => {
     const router = useRouter();
-
     const {
         query: { id, name, email, cpf, age }
     } = router;
@@ -159,4 +158,4 @@ const editStudent: React.FC = () => {
     );
 };
 
-export default editStudent;
+export default EditStudent;

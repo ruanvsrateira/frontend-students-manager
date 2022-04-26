@@ -1,6 +1,7 @@
 import React, { HTMLProps } from 'react';
 import InputMask from 'react-input-mask';
 import { Container } from './styled';
+ 
 
 interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
     mask?: string;
