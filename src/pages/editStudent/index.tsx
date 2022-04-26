@@ -30,26 +30,24 @@ const editStudent: React.FC = () => {
             age,
         },
         onSubmit: async(data) => {
-            await editStudent(data)
+            await api.post(`students/${id}/edit`, {
+                name: `${data.name}`,
+                email: `${data.email}`,
+                cpf: `${data.cpf}`,
+                age: Number(data.age),
+            }).then(({data}) => {   
+                if(data.error) {
+                    toast.error(`${data.error}`, 
+                        { position: toast.POSITION.TOP_LEFT }
+                    )
+                } else {
+                    router.push("/");
+                }
+            }).catch(e => console.log("ERRO:", e))
         },
 
         validationSchema: StudentSchema,
-    })
-
-    const editStudent = async(dataUser: any) => {
-        await api.post(`/students/${id}/edit`, {
-            name: dataUser.name,
-            email: dataUser.email,
-            cpf: dataUser.cpf,
-            age: dataUser.age,
-        }).then(({data}) => {
-            if(data.error) {
-                toast.error(`${data.error}`, 
-                    { position: toast.POSITION.TOP_LEFT }
-                )
-            }
-        })
-    }
+    });
 
     return(
         <>
