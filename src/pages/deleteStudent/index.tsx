@@ -1,22 +1,22 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Link from 'next/link';
-import api from '../../services/api';
 import { useRouter } from 'next/router';
 import { Box, Button, Container, Typography } from '@mui/material';
 import { NextPage } from 'next';
+import { api } from '../../services/api';
+import { route } from 'next/dist/server/router';
+
 
 const DeleteStudent: NextPage = () => { 
     const router = useRouter();
     const {
         query: { name, id }
     } = router; 
-    const deleteStudent = async() => {
-        const data = await api.get(`http://localhost:3333/students/${id}/delete`);
 
-        console.log(data);
-        router.push("/");
-    }
+    const DeleteStudentService = async() => {
+        api.get(`/students/${id}/delete`).then(() => router.push("/")).catch((e) => console.log(e));
+    };
 
     return(
         <>
@@ -45,7 +45,7 @@ const DeleteStudent: NextPage = () => {
                             backgroundColor: "rgb(0 232 143)",
                             color: "#fff"
                         }}
-                        onClick={deleteStudent}
+                        onClick={DeleteStudentService}
                     >
                         Deletar
                     </Button>

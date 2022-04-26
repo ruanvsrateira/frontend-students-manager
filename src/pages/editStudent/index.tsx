@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Header from '../../components/Header';
-import api from '../../services/api';
 import Input from '../../components/Input';
 import { toast, ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
@@ -9,6 +7,7 @@ import { useFormik } from 'formik';
 import { StudentSchema } from '../../validators/StudentSchema';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
+import { api } from '../../services/api';
 
 if(typeof window !== "undefined") {
     injectStyle();
@@ -19,8 +18,6 @@ const EditStudent: NextPage = () => {
     const {
         query: { id, name, email, cpf, age }
     } = router;
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const formik = useFormik({
         initialValues:{
             name,

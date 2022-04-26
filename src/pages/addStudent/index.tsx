@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import api from '../../services/api';
 import { Button, Container, Typography } from '@mui/material';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -10,6 +9,7 @@ import { injectStyle } from 'react-toastify/dist/inject-style';
 import { StudentSchema } from '../../validators/StudentSchema';
 import { useFormik } from 'formik';
 import { NextPage } from 'next';
+import { api } from '../../services/api';
 
 if(typeof window !== "undefined") {
     injectStyle();
