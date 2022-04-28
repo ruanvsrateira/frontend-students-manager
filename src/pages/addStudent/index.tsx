@@ -111,7 +111,7 @@ const AddStudent: NextPage = () => {
                         <Input
                             placeholder="CPF"
                             name="cpf"
-                            mask="999-999-999-99"
+                            mask="999.999.999-99"
                             value={formik.values.cpf}
                             onChange={formik.handleChange}
                             error={!!formik.errors.cpf && formik.touched.cpf}
