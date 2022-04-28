@@ -12,6 +12,9 @@
 <li><a href="https://formik.org/">Formik</a></li>
 <li><a href="https://www.npmjs.com/package/yup">Yup</a></li>
 <li><a href="https://www.npmjs.com/package/yup">Typescript</a></li>
+<li><a href="https://reactjs.org/docs/hooks-custom.html">Custom Hooks</a></li>
+<li><a href="https://swr.vercel.app/">useSWR</a></li>
+<li><a href="https://axios-http.com/docs/intro">Axios</a></li>
 <li><a href="https://jestjs.io/">Jest</a></li>
 
 <br>
