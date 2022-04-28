@@ -1,7 +1,11 @@
-<h1>backend stundents manager</h1>
+<h1>Frontend students manager</h1>
+
 <br>
 
-<br />
+<h2><img style="height: 25px" src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d1.png" />  Sobre o projeto</h2>
+<p>Desafio imposto a mim por <a href="https://github.com/kaiqueCovo" target="__blank">Kaique Covo</a> que consiste no backend e frontend de uma C.R.U.D de alunos, usando typescript tanto no backend e no frontend.</p>
+
+<br>
 
 <h2><img style="height: 25px" src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png" /> Técnologias usadas no projeto</h2>
 
@@ -15,7 +19,6 @@
 <li><a href="https://reactjs.org/docs/hooks-custom.html">Custom Hooks</a></li>
 <li><a href="https://swr.vercel.app/">useSWR</a></li>
 <li><a href="https://axios-http.com/docs/intro">Axios</a></li>
-<li><a href="https://jestjs.io/">Jest</a></li>
 
 <br>
 
