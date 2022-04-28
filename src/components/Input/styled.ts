@@ -4,6 +4,8 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .input {
         width: 60%;
@@ -29,5 +31,17 @@ export const Container = styled.div`
 
     input.error {
         border: 1px solid rgb(229 62 62);
+    };
+`;
+
+export const ContentError = styled.div`
+    width: 61%;
+    height: 15px;
+
+    h3 {
+        color: rgb(229 62 62);
+        margin-right:47%;
+        font-family: "Poppins";
+        font-size: 17px;
     }
 `;

@@ -1,12 +1,18 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Link from 'next/link';
+import { ToastContainer } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
+import { alertToast } from '../../services/toast';
 import { useRouter } from 'next/router';
 import { Box, Button, Container, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { api } from '../../services/api';
 import { route } from 'next/dist/server/router';
 
+if(typeof window !== "undefined") {
+    injectStyle();
+} 
 
 const DeleteStudent: NextPage = () => { 
     const router = useRouter();
@@ -14,14 +20,23 @@ const DeleteStudent: NextPage = () => {
         query: { name, id }
     } = router; 
 
-    const DeleteStudentService = async() => {
-        api.get(`/students/${id}/delete`).then(() => router.push("/")).catch((e) => console.log(e));
+    const deleteStudentService = async() => {
+        api.get(`/students/${id}/delete`).then(({data}) => {
+            if(data.error) {
+                alertToast(`${data.error}`, "error");
+            } else {
+                router.push("/");
+            }
+        }).catch((e) => {
+            console.log(e);
+            alertToast("something went wrong return to the home", "error")
+        });
     };
 
     return(
         <>
             <Header />
-           
+            <ToastContainer />
             <Container
                 style={{ 
                     justifyContent: "start",    
@@ -45,7 +60,7 @@ const DeleteStudent: NextPage = () => {
                             backgroundColor: "rgb(0 232 143)",
                             color: "#fff"
                         }}
-                        onClick={DeleteStudentService}
+                        onClick={deleteStudentService}
                     >
                         Deletar
                     </Button>

@@ -4,10 +4,13 @@ import Head from 'next/head';
 import { useFetcherGet } from '../hooks/useFetcher';
 import { Delete, ModeEdit } from '@mui/icons-material';
 import { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
+import { injectStyle } from 'react-toastify/dist/inject-style';
+import { useRouter } from 'next/router';
+import { alertToast } from '../services/toast';
 
- 
 interface Iitem {
   id: number,
   name: string,
@@ -16,14 +19,23 @@ interface Iitem {
   age: string,
 };
 
+if(typeof window !== "undefined") {
+  injectStyle();
+}
+
 const Home: NextPage = () => {  
   const { data, error } = useFetcherGet("/students")
+  const router = useRouter(); 
+  const { query: { status } } = router;
 
-  console.log(data, error)
+  useEffect(() => {
+    if(status == "addedSucess") {
+      alertToast("Aluno adicionado com exito", "success")
+    } 
+  }, [])
 
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-
   return(
     <>
     <Head>
@@ -33,7 +45,7 @@ const Home: NextPage = () => {
     </Head>
     <main>
       <Header />
-      
+      <ToastContainer />
       <Typography
         textAlign="center"
         marginTop="100px"

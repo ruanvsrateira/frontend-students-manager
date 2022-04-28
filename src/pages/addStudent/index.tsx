@@ -4,7 +4,8 @@ import Input from '../../components/Input';
 import { Button, Container, Typography } from '@mui/material';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import { alertToast } from '../../services/toast';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { StudentSchema } from '../../validators/StudentSchema';
 import { useFormik } from 'formik';
@@ -48,14 +49,12 @@ const AddStudent: NextPage = () => {
             age: Number(dataUser.age)
         }).then(({ data }) => {
             if(data.error) {
-                toast.error(`${data.error}`, 
-                    { position: toast.POSITION.TOP_LEFT }
-                )
+                alertToast(`${data.error}`, "error")
             } else {
                 router.push("/")
             }
         }).catch(e => console.log(e))
-    }
+    };
 
     return(
         <>
@@ -99,6 +98,7 @@ const AddStudent: NextPage = () => {
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             error={!!formik.errors.name && formik.touched.name}
+                            helperText={formik.errors.name}
                         />
                         <Input
                             placeholder="E-mail"
@@ -107,6 +107,7 @@ const AddStudent: NextPage = () => {
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             error={!!formik.errors.email && formik.touched.email}
+                            helperText={formik.errors.email}
                         />
                         <Input
                             placeholder="CPF"
@@ -115,13 +116,16 @@ const AddStudent: NextPage = () => {
                             value={formik.values.cpf}
                             onChange={formik.handleChange}
                             error={!!formik.errors.cpf && formik.touched.cpf}
+                            helperText={formik.errors.cpf}
                         />
                         <Input
                             placeholder="Age"
                             name="age"
+                            type="number"
                             value={formik.values.age}
                             onChange={formik.handleChange}
                             error={!!formik.errors.age && formik.touched.age}
+                            helperText={formik.errors.age}
                         />
                         <Container
                             style={{

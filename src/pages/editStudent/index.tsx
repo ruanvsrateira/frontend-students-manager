@@ -1,6 +1,7 @@
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import { toast, ToastContainer } from 'react-toastify';
+import { alertToast } from '../../services/toast';
+import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { Container, Typography, Button } from '@mui/material';
 import { useFormik } from 'formik';
@@ -33,9 +34,7 @@ const EditStudent: NextPage = () => {
                 age: Number(data.age),
             }).then(({data}) => {   
                 if(data.error) {
-                    toast.error(`${data.error}`, 
-                        { position: toast.POSITION.TOP_LEFT }
-                    )
+                    alertToast(`${data.error}`, "error")
                 } else {
                     router.push("/");
                 }
@@ -87,6 +86,7 @@ const EditStudent: NextPage = () => {
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             error={!!formik.errors.name && formik.touched.name}
+                            helperText={formik.errors.name}
                         />
                         <Input
                             placeholder="E-mail"
@@ -95,6 +95,7 @@ const EditStudent: NextPage = () => {
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             error={!!formik.errors.email}
+                            helperText={formik.errors.email}
                         />
                         <Input
                             placeholder="CPF"
@@ -103,6 +104,7 @@ const EditStudent: NextPage = () => {
                             value={formik.values.cpf}
                             onChange={formik.handleChange}
                             error={!!formik.errors.cpf && formik.touched.cpf}
+                            helperText={formik.errors.cpf}
                         />
                         <Input
                             placeholder="Age"
@@ -110,6 +112,7 @@ const EditStudent: NextPage = () => {
                             value={formik.values.age}
                             onChange={formik.handleChange}
                             error={!!formik.errors.age && formik.touched.age}
+                            helperText={formik.errors.age}
                         />
                         <Container
                             style={{

@@ -1,6 +1,6 @@
 import React, { HTMLProps } from 'react';
 import InputMask from 'react-input-mask';
-import { Container } from './styled';
+import { Container, ContentError } from './styled';
  
 
 interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,7 +9,7 @@ interface Iinput extends React.InputHTMLAttributes<HTMLInputElement> {
     error?: boolean;
   }
 
-const Input = ({mask, error, ...props }: Iinput) => {
+const Input = ({mask, error, helperText, ...props }: Iinput) => {
     if(mask) {
         return(
             <Container>
@@ -18,7 +18,11 @@ const Input = ({mask, error, ...props }: Iinput) => {
                     className={error ? ("input error") : ("input")}
                     { ...props }
                 />
-                <small>{error ? (error) : (null)}</small>
+                { helperText && error ? (
+                    <ContentError>
+                        <h3>{helperText}</h3>
+                    </ContentError>
+                ) : (null) }
             </Container>
         );
     } else {
@@ -28,6 +32,11 @@ const Input = ({mask, error, ...props }: Iinput) => {
                     className={error ? ("input error") : ("input")}
                     { ...props }
                 />
+                { helperText && error ? (
+                    <ContentError>
+                        <h3>{helperText}</h3>
+                    </ContentError>
+                ) : (null) }
             </Container>
         );
     }
